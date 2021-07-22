@@ -1,24 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
+import {useEffect, useState} from 'react';
+// import { peopleData } from './data'
 import './App.css';
+import PersonCard from './components/PersonCard/PersonCard';
+import AddPlayer from './components/AddPlayer/AddPlayer';
 
-function App() {
+export interface IState {
+  people: {
+    name: string;
+    age: number;
+    url: string;
+    notes?: string;
+  }[]
+}
+
+const App = () => {
+  const [people, setPeople] = useState<IState['people']>([])
+
+  // useEffect(() => {
+  //   setPeople(peopleData)
+  // }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container App">
+      <div className="row my-3">
+        <div className="col mt-5">
+          <h1 className='text-center'>People invited to the party</h1>
+        </div>
+      </div>
+      <div className="row my-3 mx-auto">
+          <PersonCard people={people}/>
+      </div>
+      <div className="row my-3 mx-auto">
+          <AddPlayer people={people} setPeople={setPeople}/>
+      </div>
     </div>
   );
 }
